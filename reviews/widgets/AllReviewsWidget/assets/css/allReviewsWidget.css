@@ -1,0 +1,8 @@
+.item-review{
+
+}
+    .about .customer-testimonials li.span4{
+        float: left;
+        margin-left: 0px;
+        width: 33.333333333333%;
+    }
