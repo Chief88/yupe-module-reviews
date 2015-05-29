@@ -13,13 +13,13 @@
 
                         <?php if( !empty($model->image) ): ?>
                             <div class="span4 wrapper-img transition-05">
-                                <img class="" src="<?php print $model->getImageUrl(104, 104); ?>" alt="<?php print $model->fio; ?>" title="<?php print $model->fio; ?>"/>
+                                <img class="" src="<?php print $model->getImageUrl(104, 104); ?>" alt="<?php print $model->name; ?>" title="<?php print $model->name; ?>"/>
                             </div>
                         <?php endif; ?>
 
                         <div class="span8 <?php empty($model->image)? print 'width-full': print ''; ?>">
 
-                            <div class="fio"><?php print $model->fio; ?></div>
+                            <div class="name"><?php print $model->name; ?></div>
                             <div class="organisation"><?php print $model->organisation; ?></div>
                             <div class="clearfix"></div>
                             <hr/>

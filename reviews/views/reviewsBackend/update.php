@@ -1,7 +1,7 @@
 <?php
     $this->breadcrumbs = [
         Yii::t($this->aliasModule, 'Reviews') => [$this->patchBackend.'index'],
-        $model->fio => [$this->patchBackend.'view', 'id' => $model->id],
+        $model->name => [$this->patchBackend.'view', 'id' => $model->id],
         Yii::t($this->aliasModule, 'Edit'),
     ];
 
@@ -18,7 +18,7 @@
             'label' => Yii::t($this->aliasModule, 'Create article'),
             'url' => [$this->patchBackend.'create']
         ],
-        ['label' => Yii::t($this->aliasModule, 'Reviews Article') . ' «' . mb_substr($model->fio, 0, 32) . '»'],
+        ['label' => Yii::t($this->aliasModule, 'Reviews Article') . ' «' . mb_substr($model->name, 0, 32) . '»'],
         [
             'icon' => 'pencil',
             'label' => Yii::t($this->aliasModule, 'Edit reviews article'),
@@ -50,7 +50,7 @@
 <div class="page-header">
     <h1>
         <?php echo Yii::t($this->aliasModule, 'Edit reviews article'); ?><br />
-        <small>&laquo;<?php echo $model->fio; ?>&raquo;</small>
+        <small>&laquo;<?php echo $model->name; ?>&raquo;</small>
     </h1>
 </div>
 

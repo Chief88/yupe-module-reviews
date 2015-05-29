@@ -11,7 +11,7 @@ class ReviewsModule extends WebModule
     public $minSize           = 0;
     public $maxSize           = 5368709120;
     public $maxFiles          = 1;
-    public $perPage           = 10;
+    public $perPage           = 6;
 
     private  $aliasModule = 'ReviewsModule.reviews';
     private  $patchBackend = '/reviews/reviewsBackend/';

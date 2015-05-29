@@ -45,7 +45,7 @@ $this->breadcrumbs = [
             ],
             [
                 'class' => 'bootstrap.widgets.TbEditableColumn',
-                'name'  => 'fio',
+                'name'  => 'name',
                 'editable' => [
                     'url' => $this->createUrl($this->patchBackend.'inline'),
                     'mode' => 'inline',
@@ -53,7 +53,7 @@ $this->breadcrumbs = [
                         Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
                     ]
                 ],
-                'filter'   => CHtml::activeTextField($model, 'fio', ['class' => 'form-control']),
+                'filter'   => CHtml::activeTextField($model, 'name', ['class' => 'form-control']),
             ],
             [
                 'class' => 'bootstrap.widgets.TbEditableColumn',
@@ -91,26 +91,15 @@ $this->breadcrumbs = [
             ],
             'date',
             [
-                'class'  => 'bootstrap.widgets.TbEditableColumn',
-                'editable' => [
-                    'url'  => $this->createUrl($this->patchBackend.'inline'),
-                    'mode' => 'popup',
-                    'type' => 'select',
-                    'title'  => Yii::t($this->aliasModule, 'Select {field}', ['{field}' => mb_strtolower($model->getAttributeLabel('status'))]),
-                    'source' => $model->getStatusList(),
-                    'params' => [
-                        Yii::app()->request->csrfTokenName => Yii::app()->request->csrfToken
-                    ]
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl($this->patchBackend.'inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    Reviews::STATUS_PUBLISHED  => ['class' => 'label-success'],
+                    Reviews::STATUS_MODERATION => ['class' => 'label-warning'],
+                    Reviews::STATUS_DRAFT      => ['class' => 'label-default'],
                 ],
-                'name'   => 'status',
-                'type'   => 'raw',
-                'value'  => '$data->getStatus()',
-                'filter' => CHtml::activeDropDownList(
-                    $model,
-                    'status',
-                    $model->getStatusList(),
-                    ['class' => 'form-control', 'encode' => false, 'empty' => '']
-                )
             ],
             [
                 'class'                => '\yupe\widgets\ToggleColumn',

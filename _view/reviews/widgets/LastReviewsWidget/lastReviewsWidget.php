@@ -12,7 +12,7 @@
                         <?php echo $review->message; ?>
                     </blockquote>
                     <div class="ls-reviews-author">
-                        <?php echo $review->fio; ?>
+                        <?php echo $review->name; ?>
                     </div>
                 </li>
             <?php endforeach; ?>

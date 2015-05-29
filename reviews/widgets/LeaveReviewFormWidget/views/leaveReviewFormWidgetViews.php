@@ -31,18 +31,18 @@
 
                     <div class="row-fluid">
                         <div class="span12">
-                            <?php echo $form->labelEx($model, 'fio'); ?>
+                            <?php echo $form->labelEx($model, 'name'); ?>
                         </div>
                     </div>
 
                     <div class="row-fluid">
                         <div class="span12 position-relative">
-                            <?php echo $form->textField($model,'fio',[
+                            <?php echo $form->textField($model,'name',[
                                     'class' => 'span12 field',
                                     'placeholder' => 'Ф.И.О.',
                                 ]
                             ); ?>
-                            <?php echo $form->error($model,'fio'); ?>
+                            <?php echo $form->error($model,'name'); ?>
                         </div>
                     </div>
 
@@ -99,7 +99,7 @@
                             !$model->isNewRecord && $model->image
                                 ? $model->getImageUrl()
                                 : '#',
-                            $model->fio, [
+                            $model->name, [
                                 'class' => 'preview-image',
                                 'style' => !$model->isNewRecord && $model->image
                                         ? ''

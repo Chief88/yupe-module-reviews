@@ -9,9 +9,9 @@ class ReviewsBackendController extends yupe\components\controllers\BackControlle
     {
         return [
             'inline' => [
-                'class' => 'yupe\components\actions\YInLineEditAction',
-                'model' => 'Reviews',
-                'validAttributes' => ['fio', 'status', 'rating', 'organisation', 'on_home']
+                'class'             => 'yupe\components\actions\YInLineEditAction',
+                'model'             => 'Reviews',
+                'validAttributes'   => ['name', 'status', 'rating', 'organisation', 'on_home']
             ],
             'toggle' => [
                 'class'     => 'booster.actions.TbToggleAction',

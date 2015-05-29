@@ -33,7 +33,7 @@ return [
   'Access only for authorized' => 'Доступ только для авторизованных',
   'Delete' => 'Удалить',
   'Do you really want to delete selected elements?' => 'Вы уверены, что хотите удалить выбранные элементы?',
-  'Fio' => 'Ф.И.О.',
+  'name' => 'Ваше имя',
   'Bad characters in {attribute} field' => 'Запрещенные символы в поле {attribute}',
   'Requested page was not found!' => 'Запрошенная страница не найдена!',
   'Change settings' => 'Изменить настройки',

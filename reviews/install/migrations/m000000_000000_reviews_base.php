@@ -12,7 +12,7 @@ class m000000_000000_reviews_base extends yupe\components\DbMigration
             '{{reviews_reviews}}',
             [
                 'id' => 'pk',
-                'fio' => 'varchar(250) NOT NULL',
+                'name' => 'varchar(250) NOT NULL',
                 'organisation' => 'varchar(250) NOT NULL',
                 'rating' => "integer NOT NULL",
                 'status' => "integer NOT NULL DEFAULT '0'",

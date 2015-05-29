@@ -68,7 +68,7 @@ $form = $this->beginWidget(
 
 <div class="row">
     <div class="col-xs-7">
-        <?php echo $form->textFieldGroup($model, 'fio'); ?>
+        <?php echo $form->textFieldGroup($model, 'name'); ?>
     </div>
 </div>
 
@@ -83,7 +83,7 @@ $form = $this->beginWidget(
         <?php
         echo CHtml::image(
             !$model->isNewRecord && $model->image ? $model->getImageUrl() : '#',
-            $model->fio,
+            $model->name,
             [
                 'class' => 'preview-image',
                 'style' => !$model->isNewRecord && $model->image ? '' : 'display:none'

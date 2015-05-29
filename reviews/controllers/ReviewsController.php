@@ -19,9 +19,18 @@ class ReviewsController extends yupe\components\controllers\FrontController{
         $dataProvider = new CActiveDataProvider('Reviews', [
             'criteria' => $dbCriteria,
             'pagination'=>[
-              'pageSize'=>10,
+              'pageSize'=>$this->module->perPage,
             ],
         ]);
-        $this->render('index', ['dataProvider' => $dataProvider]);
+
+        $categoryModel = '';
+        if (\Yii::app()->hasModule('category')) {
+            $categoryModel = \Category::model()->findByAttributes(['slug' => 'stranica-otzyvy']);
+        }
+
+        $this->render('index', [
+            'categoryModel' => $categoryModel,
+            'dataProvider' => $dataProvider
+        ]);
     }
 }

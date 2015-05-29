@@ -29,7 +29,7 @@ class Reviews extends yupe\models\YModel{
         return [
             'id'            => Yii::t($this->aliasModule, 'Id'),
             'date'          => Yii::t($this->aliasModule, 'Date'),
-            'fio'           => Yii::t($this->aliasModule, 'Fio'),
+            'name'           => Yii::t($this->aliasModule, 'name'),
             'organisation'  => Yii::t($this->aliasModule, 'Organisation'),
             'image'         => Yii::t($this->aliasModule, 'Image'),
             'message'       => Yii::t($this->aliasModule, 'Message'),
@@ -43,15 +43,15 @@ class Reviews extends yupe\models\YModel{
     public function rules()
     {
         return [
-            ['fio, message, organisation', 'filter', 'filter' => 'trim'],
-            ['fio', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
-            ['fio, message', 'required', 'on' => ['update', 'insert']],
+            ['name, message, organisation', 'filter', 'filter' => 'trim'],
+            ['name', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
+            ['name, message', 'required', 'on' => ['update', 'insert']],
             ['on_home, status, rating', 'numerical', 'integerOnly' => true],
-            ['fio, organisation', 'length', 'max' => 150],
+            ['name, organisation', 'length', 'max' => 150],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['rating', 'in', 'range' => array_keys($this->getRatingList())],
             ['on_home', 'in', 'range' => array_keys($this->getOnHomeList())],
-            ['on_home, id, date, fio, message, status, organisation, image, rating', 'safe', 'on' => 'search'],
+            ['on_home, id, date, name, message, status, organisation, image, rating', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -75,7 +75,8 @@ class Reviews extends yupe\models\YModel{
                         'jpegQuality'         => 100,
                         'pngCompressionLevel' => 10
                     ],
-                ]
+                ],
+                'defaultImage'   => $module->getAssetsUrl() . '/img/nophoto.jpg',
             ],
         ];
     }
@@ -106,7 +107,7 @@ class Reviews extends yupe\models\YModel{
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('fio', $this->fio, true);
+        $criteria->compare('name', $this->name, true);
         $criteria->compare('date', $this->date, true);
         $criteria->compare('message', $this->message, true);
         $criteria->compare('organisation', $this->organisation, true);

@@ -14,7 +14,7 @@
                             <img src="<?php print $review->getImageUrl(48, 48); ?>" class="author-photo">
                         <?php endif; ?>
                         <div class="author-name">
-                            <?php print $review->fio; ?>
+                            <?php print $review->name; ?>
                             <div class="author-company">
                                 <?php !empty($review->organisation) ? print $review->organisation : print ''; ?>
                             </div>
