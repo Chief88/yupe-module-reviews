@@ -1,6 +1,6 @@
 <?php Yii::import('application.modules.reviews.ReviewsModule'); ?>
 
-<?php if(isset($models) && $models != array()): ?>
+<?php if(isset($models) && $models != []): ?>
 
     <div class="left-side-reviews">
         <div class="block-title"><a href="/reviews">Отзывы клиентов</a></div>

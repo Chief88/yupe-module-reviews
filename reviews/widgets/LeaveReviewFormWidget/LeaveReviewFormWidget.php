@@ -13,9 +13,9 @@ class LeaveReviewFormWidget extends CWidget{
 
         $this->registerScripts();
 
-        $this->render('//leaveReviewFormWidgetViews', array(
+        $this->render('//leaveReviewFormWidgetViews', [
             'model' => $this->model,
-        ));
+        ]);
 
     }
 

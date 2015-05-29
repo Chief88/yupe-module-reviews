@@ -7,20 +7,20 @@
     </div>
     <?
     $form = $this->beginWidget(
-        'bootstrap.widgets.TbActiveForm', array(
+        'bootstrap.widgets.TbActiveForm', [
             'id'                     => 'reviews-form',
             'enableAjaxValidation'   => false,
             'enableClientValidation' => true,
-            'clientOptions'=>array(
+            'clientOptions'=>[
                 'validateOnSubmit'=>true,
-            ),
+            ],
             'type'                   => 'vertical',
-            'htmlOptions'            => array(
+            'htmlOptions'            => [
                 'class' => 'reviews-form row-fluid',
                 'enctype' => 'multipart/form-data'
-            ),
+            ],
             'inlineErrors'           => true,
-        )
+        ]
     );
     ?>
 
@@ -37,10 +37,10 @@
 
                     <div class="row-fluid">
                         <div class="span12 position-relative">
-                            <?php echo $form->textField($model,'fio',array(
+                            <?php echo $form->textField($model,'fio',[
                                     'class' => 'span12 field',
                                     'placeholder' => 'Ф.И.О.',
-                                )
+                                ]
                             ); ?>
                             <?php echo $form->error($model,'fio'); ?>
                         </div>
@@ -58,10 +58,10 @@
 
                     <div class="row-fluid">
                         <div class="span12 position-relative">
-                            <?php echo $form->textField($model,'organisation',array(
+                            <?php echo $form->textField($model,'organisation',[
                                     'class'=>'span12 field',
                                     'placeholder' => 'Ваша организация',
-                                )
+                                ]
                             ); ?>
                             <?php echo $form->error($model,'organisation'); ?>
                         </div>
@@ -80,11 +80,11 @@
 
                     <div class="row-fluid position-relative">
 
-                        <?php echo $form->dropDownList($model, 'rating', $model->getRatingList(), array(
+                        <?php echo $form->dropDownList($model, 'rating', $model->getRatingList(), [
                                 'encode' => false,
                                 'empty' => '--Оценить--',
                                 'class' => 'span12 popover-help field',
-                            )
+                            ]
                         ); ?>
 
                         <?php echo $form->error($model,'rating'); ?>
@@ -99,19 +99,19 @@
                             !$model->isNewRecord && $model->image
                                 ? $model->getImageUrl()
                                 : '#',
-                            $model->fio, array(
+                            $model->fio, [
                                 'class' => 'preview-image',
                                 'style' => !$model->isNewRecord && $model->image
                                         ? ''
                                         : 'display:none'
-                            )
+                            ]
                         ); ?>
                         <?php echo $form->labelEx($model, 'image'); ?>
-                        <?php echo $form->fileField($model, 'image', array(
+                        <?php echo $form->fileField($model, 'image', [
                                 'onchange' => 'readURL(this);',
                                 'class' => 'span12 field',
                                 'style' => 'line-height: 20px;',
-                            )
+                            ]
                         ); ?>
                     </div>
                 </div>
@@ -119,9 +119,9 @@
 
             <div class="row-fluid margin">
                 <div class="span4">
-                    <?php echo CHtml::submitButton('Отправить отзыв',array(
+                    <?php echo CHtml::submitButton('Отправить отзыв',[
                             'class'=>'btn btn-submit transition shadow animated'
-                        )
+                        ]
                     ); ?>
                 </div>
             </div>
@@ -140,10 +140,10 @@
 
                     <div class="row-fluid">
                         <div class="span12 position-relative">
-                            <?php echo $form->textArea($model,'message',array(
+                            <?php echo $form->textArea($model,'message',[
                                     'class' => 'span12 field reviews-message',
                                     'placeholder' => 'Ваш отзыв',
-                                )
+                                ]
                             ); ?>
                             <?php echo $form->error($model,'message'); ?>
                         </div>

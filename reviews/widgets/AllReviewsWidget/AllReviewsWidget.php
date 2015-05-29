@@ -17,10 +17,10 @@ class AllReviewsWidget extends yupe\widgets\YWidget{
 
         $reviews = Reviews::model()->published()->cache($this->cacheTime)->findAll($criteria);
 
-        $this->render('//allReviewsWidgetViews', array(
+        $this->render('//allReviewsWidgetViews', [
             'reviews'       => $reviews,
             'countInLine'   => $this->countInLine,
-        ));
+        ]);
 
     }
 

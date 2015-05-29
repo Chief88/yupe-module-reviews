@@ -1,6 +1,6 @@
 <?php Yii::import('application.modules.reviews.ReviewsModule'); ?>
 
-<?php if(isset($models) && $models != array()): ?>
+<?php if(isset($models) && $models != []): ?>
 
     <noindex>
         <div class="extra-title">Отзывы</div>

@@ -2,18 +2,22 @@
 
 class ReviewsBackendController extends yupe\components\controllers\BackController{
 
-    public   $aliasModuleT = 'ReviewsModule.reviews';
+    public   $aliasModule = 'ReviewsModule.reviews';
     public   $patchBackend = '/reviews/reviewsBackend/';
 
     public function actions()
     {
-        return array(
-            'inline' => array(
+        return [
+            'inline' => [
                 'class' => 'yupe\components\actions\YInLineEditAction',
                 'model' => 'Reviews',
-                'validAttributes' => array('fio', 'status', 'rating', 'organisation')
-            )
-        );
+                'validAttributes' => ['fio', 'status', 'rating', 'organisation', 'on_home']
+            ],
+            'toggle' => [
+                'class'     => 'booster.actions.TbToggleAction',
+                'modelName' => 'Reviews',
+            ],
+        ];
     }
 
     /**
@@ -29,11 +33,11 @@ class ReviewsBackendController extends yupe\components\controllers\BackControlle
 
         $model->setAttributes(
             Yii::app()->getRequest()->getParam(
-                'Reviews', array()
+                'Reviews', []
             )
         );
 
-        $this->render('index', array('model' => $model));
+        $this->render('index', ['model' => $model]);
     }
 
     /**
@@ -57,18 +61,18 @@ class ReviewsBackendController extends yupe\components\controllers\BackControlle
                 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t($this->aliasModuleT, 'Reviews article was created!')
+                    Yii::t($this->aliasModule, 'Reviews article was created!')
                 );
 
                 $this->redirect(
                     (array) Yii::app()->getRequest()->getPost(
-                        'submit-type', array('create')
+                        'submit-type', ['create']
                     )
                 );
             }
         }
 
-        $this->render('create', array('model' => $model));
+        $this->render('create', ['model' => $model]);
     }
 
     public function actionUpdate($id)
@@ -83,23 +87,23 @@ class ReviewsBackendController extends yupe\components\controllers\BackControlle
 
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t($this->aliasModuleT, 'Reviews article was updated!')
+                    Yii::t($this->aliasModule, 'Reviews article was updated!')
                 );
 
                 $this->redirect(
                     Yii::app()->getRequest()->getIsPostRequest()
                         ? (array) Yii::app()->getRequest()->getPost(
-                            'submit-type', array('update', 'id' => $model->id)
+                            'submit-type', ['update', 'id' => $model->id]
                         )
-                        : array('view', 'id' => $model->id)
+                        : ['view', 'id' => $model->id]
                 );
             }
         }
 
         $this->render(
-            'update',array(
+            'update',[
                 'model'      => $model,
-            )
+            ]
         );
     }
 
@@ -111,7 +115,7 @@ class ReviewsBackendController extends yupe\components\controllers\BackControlle
             
             Yii::app()->user->setFlash(
                 yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                Yii::t($this->aliasModuleT, 'Record was removed!')
+                Yii::t($this->aliasModule, 'Record was removed!')
             );
 
             // если это AJAX запрос ( кликнули удаление в админском grid view), мы не должны никуда редиректить
@@ -121,7 +125,7 @@ class ReviewsBackendController extends yupe\components\controllers\BackControlle
         } else {
             throw new CHttpException(
                 400,
-                Yii::t($this->aliasModuleT, 'Bad request. Please don\'t use similar requests anymore!')
+                Yii::t($this->aliasModule, 'Bad request. Please don\'t use similar requests anymore!')
             );
         }
     }
@@ -141,7 +145,7 @@ class ReviewsBackendController extends yupe\components\controllers\BackControlle
         if (($model = Reviews::model()->findByPk($id)) === null) {
             throw new CHttpException(
                 404,
-                Yii::t($this->aliasModuleT, 'Requested page was not found!')
+                Yii::t($this->aliasModule, 'Requested page was not found!')
             );
         }
         

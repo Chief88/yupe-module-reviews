@@ -10,7 +10,7 @@ class m000000_000000_reviews_base extends yupe\components\DbMigration
 
         $this->createTable(
             '{{reviews_reviews}}',
-            array(
+            [
                 'id' => 'pk',
                 'fio' => 'varchar(250) NOT NULL',
                 'organisation' => 'varchar(250) NOT NULL',
@@ -19,7 +19,8 @@ class m000000_000000_reviews_base extends yupe\components\DbMigration
                 'date' => 'timestamp NOT NULL',
                 'image' => 'varchar(300) DEFAULT NULL',
                 'message' => 'text NOT NULL',
-            ), $this->getOptions()
+                'on_home' => "integer NOT NULL DEFAULT '0'",
+            ], $this->getOptions()
         );
 
     }

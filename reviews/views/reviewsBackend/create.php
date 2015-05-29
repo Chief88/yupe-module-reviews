@@ -1,24 +1,32 @@
 <?php
-    $this->breadcrumbs = array(        
-        Yii::t($this->aliasModuleT, 'Reviews') => array($this->patchBackend.'index'),
-        Yii::t($this->aliasModuleT, 'Create'),
-    );
+    $this->breadcrumbs = [
+        Yii::t($this->aliasModule, 'Reviews') => [$this->patchBackend.'index'],
+        Yii::t($this->aliasModule, 'Create'),
+    ];
 
-    $this->pageTitle = Yii::t($this->aliasModuleT, 'Reviews - create');
+    $this->pageTitle = Yii::t($this->aliasModule, 'Reviews - create');
 
-    $this->menu = array(
-        array('icon' => 'list-alt', 'label' => Yii::t($this->aliasModuleT, 'Reviews management'), 'url' => array($this->patchBackend.'index')),
-        array('icon' => 'plus-sign', 'label' => Yii::t($this->aliasModuleT, 'Create article'), 'url' => array($this->patchBackend.'create')),
-    );
+    $this->menu = [
+        [
+            'icon' => 'list-alt',
+            'label' => Yii::t($this->aliasModule, 'Reviews management'),
+            'url' => [$this->patchBackend.'index']
+        ],
+        [
+            'icon' => 'plus-sign',
+            'label' => Yii::t($this->aliasModule, 'Create article'),
+            'url' => [$this->patchBackend.'create']
+        ],
+    ];
 ?>
 <div class="page-header">
     <h1>
-        <?php echo Yii::t($this->aliasModuleT, 'Reviews'); ?>
-        <small><?php echo Yii::t($this->aliasModuleT, 'create'); ?></small>
+        <?php echo Yii::t($this->aliasModule, 'Reviews'); ?>
+        <small><?php echo Yii::t($this->aliasModule, 'create'); ?></small>
     </h1>
 </div>
 
-<?php echo $this->renderPartial('_form', array(
+<?php echo $this->renderPartial('_form', [
     'model' => $model,
-    'aliasModuleT' => $this->aliasModuleT,
-)); ?>
+    'aliasModule' => $this->aliasModule,
+]); ?>

@@ -9,7 +9,10 @@ class Reviews extends yupe\models\YModel{
     const PROTECTED_NO  = 0;
     const PROTECTED_YES = 1;
 
-    private  $aliasModuleT = 'ReviewsModule.reviews';
+    const ON_HOME_NO  = 0;
+    const ON_HOME_YES  = 1;
+
+    private  $aliasModule = 'ReviewsModule.reviews';
 
     public function tableName()
     {
@@ -23,69 +26,79 @@ class Reviews extends yupe\models\YModel{
 
     public function attributeLabels(){
 
-        return array(
-            'id'            => Yii::t($this->aliasModuleT, 'Id'),
-            'date'          => Yii::t($this->aliasModuleT, 'Date'),
-            'fio'           => Yii::t($this->aliasModuleT, 'Fio'),
-            'organisation'  => Yii::t($this->aliasModuleT, 'Organisation'),
-            'image'         => Yii::t($this->aliasModuleT, 'Image'),
-            'message'       => Yii::t($this->aliasModuleT, 'Message'),
-            'rating'        => Yii::t($this->aliasModuleT, 'Rating'),
-            'status'        => Yii::t($this->aliasModuleT, 'Status'),
-        );
+        return [
+            'id'            => Yii::t($this->aliasModule, 'Id'),
+            'date'          => Yii::t($this->aliasModule, 'Date'),
+            'fio'           => Yii::t($this->aliasModule, 'Fio'),
+            'organisation'  => Yii::t($this->aliasModule, 'Organisation'),
+            'image'         => Yii::t($this->aliasModule, 'Image'),
+            'message'       => Yii::t($this->aliasModule, 'Message'),
+            'rating'        => Yii::t($this->aliasModule, 'Rating'),
+            'status'        => Yii::t($this->aliasModule, 'Status'),
+            'on_home'       => Yii::t($this->aliasModule, 'On home page'),
+        ];
 
     }
 
     public function rules()
     {
-        return array(
-            array('fio, message, organisation', 'filter', 'filter' => 'trim'),
-            array('fio', 'filter', 'filter' => array(new CHtmlPurifier(), 'purify')),
-            array('fio, message', 'required', 'on' => array('update', 'insert')),
-            array('status, rating', 'numerical', 'integerOnly' => true),
-            array('fio, organisation', 'length', 'max' => 150),
-            array('status', 'in', 'range' => array_keys($this->getStatusList())),
-            array('rating', 'in', 'range' => array_keys($this->getRatingList())),
-            array('id, date, fio, message, status, organisation, image, rating', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['fio, message, organisation', 'filter', 'filter' => 'trim'],
+            ['fio', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
+            ['fio, message', 'required', 'on' => ['update', 'insert']],
+            ['on_home, status, rating', 'numerical', 'integerOnly' => true],
+            ['fio, organisation', 'length', 'max' => 150],
+            ['status', 'in', 'range' => array_keys($this->getStatusList())],
+            ['rating', 'in', 'range' => array_keys($this->getRatingList())],
+            ['on_home', 'in', 'range' => array_keys($this->getOnHomeList())],
+            ['on_home, id, date, fio, message, status, organisation, image, rating', 'safe', 'on' => 'search'],
+        ];
     }
 
     public function behaviors()
     {
         $module = Yii::app()->getModule('reviews');
 
-        return array(
-            'imageUpload' => array(
+        return [
+            'imageUpload' => [
                 'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
-                'scenarios'     => array('insert', 'update'),
                 'attributeName' => 'image',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
+                'requiredOn'    => 'insert',
                 'uploadPath'    => $module->uploadPath,
-            ),
-        );
+                'resizeOptions' => [
+                    'width'   => 9999,
+                    'height'  => 9999,
+                    'quality' => [
+                        'jpegQuality'         => 100,
+                        'pngCompressionLevel' => 10
+                    ],
+                ]
+            ],
+        ];
     }
 
     public function relations()
     {
-        return array(
+        return [
 
-        );
+        ];
     }
 
     public function scopes()
     {
-        return array(
-            'published' => array(
+        return [
+            'published' => [
                 'condition' => 't.status = :status',
-                'params'    => array(':status'   => self::STATUS_PUBLISHED),
-            ),
-            'recent'    => array(
+                'params'    => [':status'   => self::STATUS_PUBLISHED],
+            ],
+            'recent'    => [
                 'order' => 'date DESC',
                 'limit' => 5,
-            )
-        );
+            ]
+        ];
     }
 
     public function search(){
@@ -99,44 +112,59 @@ class Reviews extends yupe\models\YModel{
         $criteria->compare('organisation', $this->organisation, true);
         $criteria->compare('rating', $this->rating);
         $criteria->compare('status', $this->status);
+        $criteria->compare('on_home', $this->on_home);
 
-        return new CActiveDataProvider(get_class($this), array(
+        return new CActiveDataProvider(get_class($this), [
             'criteria' => $criteria,
-        ));
+        ]);
     }
 
     public function getRatingList(){
 
-        return array(
+        return [
             0 => 0,
             1 => 1,
             2 => 2,
             3 => 3,
             4 => 4,
             5 => 5,
-        );
+        ];
 
     }
 
     public function getStatusList()
     {
-        return array(
-            self::STATUS_DRAFT      => Yii::t($this->aliasModuleT, 'Draft'),
-            self::STATUS_PUBLISHED  => Yii::t($this->aliasModuleT, 'Published'),
-            self::STATUS_MODERATION => Yii::t($this->aliasModuleT, 'On moderation'),
-        );
+        return [
+            self::STATUS_DRAFT      => Yii::t($this->aliasModule, 'Draft'),
+            self::STATUS_PUBLISHED  => Yii::t($this->aliasModule, 'Published'),
+            self::STATUS_MODERATION => Yii::t($this->aliasModule, 'On moderation'),
+        ];
+    }
+
+    public function getOnHomeList()
+    {
+        return [
+            self::ON_HOME_YES      => Yii::t($this->aliasModule, 'yes'),
+            self::ON_HOME_NO  => Yii::t($this->aliasModule, 'no'),
+        ];
     }
 
     public function getRating()
     {
         $data = $this->getRatingList();
-        return isset($data[$this->rating]) ? $data[$this->rating] : Yii::t($this->aliasModuleT, '*unknown*');
+        return isset($data[$this->rating]) ? $data[$this->rating] : Yii::t($this->aliasModule, '*unknown*');
     }
 
     public function getStatus()
     {
         $data = $this->getStatusList();
-        return isset($data[$this->status]) ? $data[$this->status] : Yii::t($this->aliasModuleT, '*unknown*');
+        return isset($data[$this->status]) ? $data[$this->status] : Yii::t($this->aliasModule, '*unknown*');
+    }
+
+    public function getOnHome()
+    {
+        $data = $this->getOnHomeList();
+        return isset($data[$this->on_home]) ? $data[$this->on_home] : Yii::t($this->aliasModule, '*unknown*');
     }
 
 }

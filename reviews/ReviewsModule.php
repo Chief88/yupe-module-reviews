@@ -4,7 +4,7 @@ use yupe\components\WebModule;
 
 class ReviewsModule extends WebModule
 {
-    const VERSION = '0.2';
+    const VERSION = '0.9';
 
     public $uploadPath        = 'reviews';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
@@ -13,7 +13,7 @@ class ReviewsModule extends WebModule
     public $maxFiles          = 1;
     public $perPage           = 10;
 
-    private  $aliasModuleT = 'ReviewsModule.reviews';
+    private  $aliasModule = 'ReviewsModule.reviews';
     private  $patchBackend = '/reviews/reviewsBackend/';
 
     public function getInstall()
@@ -27,42 +27,42 @@ class ReviewsModule extends WebModule
 
     public function checkSelf()
     {
-        $messages = array();
+        $messages = [];
 
         $uploadPath = Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR . $this->uploadPath;
 
         if (!is_writable($uploadPath))
-            $messages[WebModule::CHECK_ERROR][] =  array(
+            $messages[WebModule::CHECK_ERROR][] =  [
                 'type'    => WebModule::CHECK_ERROR,
-                'message' => Yii::t($this->aliasModuleT, 'Directory "{dir}" is not accessible for write! {link}', array(
+                'message' => Yii::t($this->aliasModule, 'Directory "{dir}" is not accessible for write! {link}', [
                     '{dir}'  => $uploadPath,
-                    '{link}' => CHtml::link(Yii::t($this->aliasModuleT, 'Change settings'), array(
+                    '{link}' => CHtml::link(Yii::t($this->aliasModule, 'Change settings'), [
                         '/yupe/backend/modulesettings/',
                         'module' => 'reviews',
-                     )),
-                )),
-            );
+                     ]),
+                ]),
+            ];
 
         return (isset($messages[WebModule::CHECK_ERROR])) ? $messages : true;
     }
 
     public function getParamsLabels()
     {
-        return array(
-            'mainCategory'      => Yii::t($this->aliasModuleT, 'Main reviews category'),
-            'adminMenuOrder'    => Yii::t($this->aliasModuleT, 'Menu items order'),
-            'editor'            => Yii::t($this->aliasModuleT, 'Visual Editor'),
-            'uploadPath'        => Yii::t($this->aliasModuleT, 'Uploading files catalog (relatively {path})', array('{path}' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule("yupe")->uploadPath)),
-            'allowedExtensions' => Yii::t($this->aliasModuleT, 'Accepted extensions (separated by comma)'),
-            'minSize'           => Yii::t($this->aliasModuleT, 'Minimum size (in bytes)'),
-            'maxSize'           => Yii::t($this->aliasModuleT, 'Maximum size (in bytes)'),
-            'perPage'           => Yii::t($this->aliasModuleT, 'Reviews per page'),
-        );
+        return [
+            'mainCategory'      => Yii::t($this->aliasModule, 'Main reviews category'),
+            'adminMenuOrder'    => Yii::t($this->aliasModule, 'Menu items order'),
+            'editor'            => Yii::t($this->aliasModule, 'Visual Editor'),
+            'uploadPath'        => Yii::t($this->aliasModule, 'Uploading files catalog (relatively {path})', ['{path}' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule("yupe")->uploadPath]),
+            'allowedExtensions' => Yii::t($this->aliasModule, 'Accepted extensions (separated by comma)'),
+            'minSize'           => Yii::t($this->aliasModule, 'Minimum size (in bytes)'),
+            'maxSize'           => Yii::t($this->aliasModule, 'Maximum size (in bytes)'),
+            'perPage'           => Yii::t($this->aliasModule, 'Reviews per page'),
+        ];
     }
 
     public function getEditableParams()
     {
-        return array(
+        return [
             'adminMenuOrder',
             'editor'       => Yii::app()->getModule('yupe')->getEditors(),
             'mainCategory' => CHtml::listData($this->getCategoryList(),'id','name'),
@@ -71,36 +71,36 @@ class ReviewsModule extends WebModule
             'minSize',
             'maxSize',
             'perPage',
-        );
+        ];
     }
 
     public function getEditableParamsGroups()
     {
-        return array(
-            'main' => array(
-                'label' => Yii::t($this->aliasModuleT, 'General module settings'),
-                'items' => array(
+        return [
+            'main' => [
+                'label' => Yii::t($this->aliasModule, 'General module settings'),
+                'items' => [
                     'adminMenuOrder',
                     'editor',
                     'mainCategory'
-                )
-            ),
-            'images' => array(
-                'label' => Yii::t($this->aliasModuleT, 'Images settings'),
-                'items' => array(
+                ]
+            ],
+            'images' => [
+                'label' => Yii::t($this->aliasModule, 'Images settings'),
+                'items' => [
                     'uploadPath',
                     'allowedExtensions',
                     'minSize',
                     'maxSize'
-                )
-            ),
-            'list' => array(
-                'label' => Yii::t($this->aliasModuleT, 'Reviews lists'),
-                'items' => array(
+                ]
+            ],
+            'list' => [
+                'label' => Yii::t($this->aliasModule, 'Reviews lists'),
+                'items' => [
                     'perPage',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     public function getVersion()
@@ -115,32 +115,32 @@ class ReviewsModule extends WebModule
 
     public function getCategory()
     {
-        return Yii::t($this->aliasModuleT, 'Content');
+        return Yii::t($this->aliasModule, 'Content');
     }
 
     public function getName()
     {
-        return Yii::t($this->aliasModuleT, 'Reviews');
+        return Yii::t($this->aliasModule, 'Reviews');
     }
 
     public function getDescription()
     {
-        return Yii::t($this->aliasModuleT, 'Module for creating and management reviews');
+        return Yii::t($this->aliasModule, 'Module for creating and management reviews');
     }
 
     public function getAuthor()
     {
-        return Yii::t($this->aliasModuleT, 'adelfo development');
+        return Yii::t($this->aliasModule, 'adelfo development');
     }
 
     public function getAuthorEmail()
     {
-        return Yii::t($this->aliasModuleT, 'serg.latyshkov@gmail.com');
+        return Yii::t($this->aliasModule, 'serg.latyshkov@gmail.com');
     }
 
     public function getUrl()
     {
-        return Yii::t($this->aliasModuleT, 'http://adelfo-studio.ru/');
+        return Yii::t($this->aliasModule, 'http://adelfo-studio.ru/');
     }
 
     public function getIcon()
@@ -155,24 +155,24 @@ class ReviewsModule extends WebModule
 
     public function getNavigation()
     {
-        return array(
-            array('icon' => 'fa fa-fw fa-list-alt',
-                'label' => Yii::t($this->aliasModuleT, 'Reviews list'),
-                'url' => array($this->patchBackend.'index')
-            ),
-            array('icon' => 'fa fa-fw fa-plus-square',
-                'label' => Yii::t($this->aliasModuleT, 'Create reviews'),
-                'url' => array($this->patchBackend.'create')
-            ),
-        );
+        return [
+            ['icon' => 'fa fa-fw fa-list-alt',
+                'label' => Yii::t($this->aliasModule, 'Reviews list'),
+                'url' => [$this->patchBackend.'index']
+            ],
+            ['icon' => 'fa fa-fw fa-plus-square',
+                'label' => Yii::t($this->aliasModule, 'Create reviews'),
+                'url' => [$this->patchBackend.'create']
+            ],
+        ];
     }
 
     public function init()
     {
         parent::init();
 
-        $this->setImport(array(
+        $this->setImport([
             'reviews.models.*'
-        ));
+        ]);
     }
 }

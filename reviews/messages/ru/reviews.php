@@ -1,6 +1,6 @@
 <?php
 
-return array (
+return [
   'Reviews lists'    => 'Списки отзывов',
   'General module settings' => 'Основные настройки модуля',
   'Images settings' => 'Настройки изображений',
@@ -87,8 +87,10 @@ return array (
   'are required' => 'обязательны.',
   'management' => 'управление',
   'read...' => 'читать...',
+
   'Select {field}' => 'Выберите {field}',
   'Organisation' => 'Название организации',
   'Rating' => 'Оценка',
   'Create reviews' => 'Создать отзыв',
-);
+  'On home page' => 'На главную страницу',
+];

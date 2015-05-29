@@ -1,6 +1,4 @@
-<?php //var_dump($reviews); ?>
-
-<?php if(isset($reviews) && $reviews != array()): ?>
+<?php if(isset($reviews) && $reviews != []): ?>
     <div class="customer-testimonials" id="about-scroll-reviews">
 
         <h4>Отзывы наших заказчиков</h4>

@@ -1,6 +1,6 @@
 <?php
 $this->pageTitle = 'Отзывы';
-$this->breadcrumbs = array('Отзывы');
+$this->breadcrumbs = ['Отзывы'];
 ?>
 
 <div class="content">
@@ -10,13 +10,13 @@ $this->breadcrumbs = array('Отзывы');
 
     <?php $this->widget(
         'bootstrap.widgets.TbListView',
-        array(
+        [
             'dataProvider'  => $dataProvider,
             'itemView'      => '_view',
             'template'      => "{pager}\n{items}\n{pager}",
             'itemsCssClass' => 'seo-reviews',
             'itemsTagName'  => 'ul',
-            'pager' => array(
+            'pager' => [
                 'cssFile' => false,
                 'prevPageLabel' => '',
                 'firstPageLabel' => '',
@@ -28,12 +28,12 @@ $this->breadcrumbs = array('Отзывы');
                 'lastPageCssClass' => 'page-list-nav page-last',
                 'selectedPageCssClass' => 'selected no-click',
                 'header' => '',
-                'htmlOptions' => array(
+                'htmlOptions' => [
                     'class' => 'page-list',
-                ),
+                ],
 
-            ),
-        )
+            ],
+        ]
     ); ?>
 
 </div>
