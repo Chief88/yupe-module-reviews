@@ -6,6 +6,7 @@ class LastReviewsWidget extends yupe\widgets\YWidget{
 
     public $view = 'lastReviewsWidget';
     public $onHome = false;
+    public $params;
 
     public function run()
     {
@@ -21,6 +22,12 @@ class LastReviewsWidget extends yupe\widgets\YWidget{
 
         $reviews = Reviews::model()->published()->cache($this->cacheTime)->findAll($criteria);
 
-        $this->render($this->view, ['models' => $reviews]);
+        if(count($reviews) > 0){
+            $this->render($this->view, [
+                'models' => $reviews,
+                'params' => $this->params,
+            ]);
+        }
+
     }
 }
