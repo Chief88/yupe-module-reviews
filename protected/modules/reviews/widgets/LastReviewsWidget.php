@@ -7,6 +7,7 @@ class LastReviewsWidget extends yupe\widgets\YWidget{
     public $view = 'lastReviewsWidget';
     public $onHome = false;
     public $params;
+    public $limit = 4;
 
     public function run()
     {
@@ -17,7 +18,11 @@ class LastReviewsWidget extends yupe\widgets\YWidget{
                 ':onHome' => 1
             ];
         }
-        $criteria->limit = (int)$this->limit;
+
+        if($this->limit){
+            $criteria->limit = (int)$this->limit;
+        }
+
         $criteria->order = 'id DESC';
 
         $reviews = Reviews::model()->published()->cache($this->cacheTime)->findAll($criteria);
