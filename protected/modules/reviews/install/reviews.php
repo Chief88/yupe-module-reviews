@@ -11,5 +11,6 @@ return [
     'component' => [],
     'rules'     => [
         '/reviews' => '/reviews/reviews/index',
+        '/reviews/reviews/uploadFileAjax' => '/reviews/reviews/uploadFileAjax',
     ],
 ];

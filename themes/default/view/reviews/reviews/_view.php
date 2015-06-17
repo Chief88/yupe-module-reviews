@@ -16,7 +16,7 @@ switch($modulo){
 
 <li>
     <div class="image photoframe <?= $classF; ?>">
-        <img src="<?= $data->getImageUrl(320, 222); ?>" alt="<?= $data->organisation; ?>" />
+        <img src="<?= $data->getImageUrl(320, 222); ?>" alt="<?= $data->name; ?>" />
     </div>
     <div class="title withdate">
         <?= $data->name; ?>

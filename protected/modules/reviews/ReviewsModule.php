@@ -9,7 +9,7 @@ class ReviewsModule extends WebModule
     public $uploadPath        = 'reviews';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize           = 0;
-    public $maxSize           = 5368709120;
+    public $maxSize           = 10485760;
     public $maxFiles          = 1;
     public $perPage           = 6;
 
@@ -174,5 +174,38 @@ class ReviewsModule extends WebModule
         $this->setImport([
             'reviews.models.*'
         ]);
+    }
+
+    public function getAuthItems()
+    {
+        return [
+            [
+                'name'        => 'Reviews.ReviewsManager',
+                'description' => Yii::t($this->aliasModule, 'Manage reviews'),
+                'type'        => AuthItem::TYPE_TASK,
+                'items'       => [
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Reviews.reviewsBackend.Create',
+                        'description' => Yii::t($this->aliasModule, 'Creating reviews')
+                    ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Reviews.reviewsBackend.Delete',
+                        'description' => Yii::t($this->aliasModule, 'Removing reviews')
+                    ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Reviews.reviewsBackend.Index',
+                        'description' => Yii::t($this->aliasModule, 'List of reviews')
+                    ],
+                    [
+                        'type'        => AuthItem::TYPE_OPERATION,
+                        'name'        => 'Reviews.reviewsBackend.Update',
+                        'description' => Yii::t($this->aliasModule, 'Editing reviews')
+                    ],
+                ]
+            ]
+        ];
     }
 }

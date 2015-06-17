@@ -5,6 +5,19 @@ class ReviewsBackendController extends yupe\components\controllers\BackControlle
     public   $aliasModule = 'ReviewsModule.reviews';
     public   $patchBackend = '/reviews/reviewsBackend/';
 
+    public function accessRules()
+    {
+        return [
+            ['allow', 'roles' => ['admin']],
+            ['allow', 'actions' => ['create'], 'roles' => ['reviews.reviewsBackend.Create']],
+            ['allow', 'actions' => ['delete'], 'roles' => ['reviews.reviewsBackend.Delete']],
+            ['allow', 'actions' => ['index'], 'roles' => ['reviews.reviewsBackend.Index']],
+            ['allow', 'actions' => ['inline'], 'roles' => ['reviews.reviewsBackend.Update']],
+            ['allow', 'actions' => ['update', 'toggle', 'inline'], 'roles' => ['reviews.reviewsBackend.Update']],
+            ['deny']
+        ];
+    }
+    
     public function actions()
     {
         return [

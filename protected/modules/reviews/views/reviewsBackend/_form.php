@@ -3,7 +3,7 @@
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     [
-        'id' => 'eviews-form',
+        'id' => 'reviews-form',
         'enableAjaxValidation' => false,
         'enableClientValidation' => true,
         'type' => 'vertical',
@@ -75,6 +75,12 @@ $form = $this->beginWidget(
 <div class="row">
     <div class="col-xs-7">
         <?php echo $form->textFieldGroup($model, 'organisation'); ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-7">
+        <?php echo $form->textFieldGroup($model, 'email'); ?>
     </div>
 </div>
 

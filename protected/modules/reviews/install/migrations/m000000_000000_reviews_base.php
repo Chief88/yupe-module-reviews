@@ -15,11 +15,12 @@ class m000000_000000_reviews_base extends yupe\components\DbMigration
                 'name' => 'varchar(250) NOT NULL',
                 'organisation' => 'varchar(250) NOT NULL',
                 'rating' => "integer NOT NULL",
-                'status' => "integer NOT NULL DEFAULT '0'",
+                'status' => "integer NOT NULL DEFAULT '2'",
                 'date' => 'timestamp NOT NULL',
                 'image' => 'varchar(300) DEFAULT NULL',
                 'message' => 'text NOT NULL',
                 'on_home' => "integer NOT NULL DEFAULT '0'",
+                'email' => "varchar(250) NOT NULL",
             ], $this->getOptions()
         );
 

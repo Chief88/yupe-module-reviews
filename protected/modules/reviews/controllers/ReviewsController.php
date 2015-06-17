@@ -1,5 +1,5 @@
 <?php
-
+\Yii::import("ext.EAjaxUpload.qqFileUploader");
 class ReviewsController extends yupe\components\controllers\FrontController{
 
     public   $aliasModule = 'ReviewsModule.reviews';
@@ -7,6 +7,8 @@ class ReviewsController extends yupe\components\controllers\FrontController{
     
     public function actionIndex()
     {
+        $this->_sendForm();
+
         $dbCriteria = new CDbCriteria([
             'condition' => 't.status = :status',
             'params'    => [
@@ -30,7 +32,56 @@ class ReviewsController extends yupe\components\controllers\FrontController{
 
         $this->render('index', [
             'categoryModel' => $categoryModel,
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
         ]);
+    }
+
+    private function _sendForm(){
+
+        $form = new \Reviews();
+        $module = \Yii::app()->getModule('reviews');
+
+        // если пользователь авторизован - подставить его данные
+        if (\Yii::app()->user->isAuthenticated()) {
+            $form->email = \Yii::app()->getUser()->getProFileField('email');
+            $form->name = \Yii::app()->getUser()->getProFileField('nick_name');
+        }
+
+        if (\Yii::app()->getRequest()->getIsPostRequest() && !empty($_POST[$form->getModelName()])) {
+
+            $form->setAttributes(\Yii::app()->getRequest()->getPost($form->getModelName()));
+
+            if ($form->validate()) {
+                if ($form->save()) {
+                    if (\Yii::app()->getRequest()->getIsAjaxRequest()) {
+                        \Yii::app()->ajax->success(\Yii::t($this->aliasModule, 'Your message sent! Thanks!'));
+                    }
+
+                    \Yii::app()->getUser()->setFlash(
+                        \yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,'Спасибо, ваше сообщение отправлено!'
+                    );
+
+                    $this->redirect(['/reviews']);
+                }else{
+                    if (\Yii::app()->getRequest()->getIsAjaxRequest()) {
+                        \Yii::app()->ajax->failure(\Yii::t($this->aliasModule, 'It is not possible to send message!'));
+                    }
+
+                    \Yii::app()->getUser()->setFlash(
+                        \yupe\widgets\YFlashMessages::ERROR_MESSAGE,'Прроизошла ошибка. Попробуйте еще раз или обратитесь в тех. поддержку.'
+                    );
+                }
+            } else {
+                if (\Yii::app()->getRequest()->getIsAjaxRequest()) {
+                    \Yii::app()->ajax->rawText(CActiveForm::validate($form));
+                }
+            }
+        }
+
+        \Yii::app()->session['aReviews'] = [
+            'form' => $form,
+            'module' => $module
+        ];
+
     }
 }

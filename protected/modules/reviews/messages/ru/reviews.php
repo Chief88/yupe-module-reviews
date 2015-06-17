@@ -37,7 +37,7 @@ return [
   'Bad characters in {attribute} field' => 'Запрещенные символы в поле {attribute}',
   'Requested page was not found!' => 'Запрошенная страница не найдена!',
   'Change settings' => 'Изменить настройки',
-  'Image' => 'Изображение',
+  'Image' => 'Фото',
   'Find article' => 'Искать отзыв',
   'Uploading files catalog (relatively {path})' => 'Каталог для загрузки файлов (относительно {path})',
   'Category' => 'Категория',
@@ -93,4 +93,5 @@ return [
   'Rating' => 'Оценка',
   'Create reviews' => 'Создать отзыв',
   'On home page' => 'На главную страницу',
+  'Your message sent! Thanks!' => 'Ваше сообщение отправлено! Спасибо!',
 ];

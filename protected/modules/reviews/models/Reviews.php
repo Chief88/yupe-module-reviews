@@ -36,6 +36,7 @@ class Reviews extends yupe\models\YModel{
             'rating'        => Yii::t($this->aliasModule, 'Rating'),
             'status'        => Yii::t($this->aliasModule, 'Status'),
             'on_home'       => Yii::t($this->aliasModule, 'On home page'),
+            'email'       => Yii::t($this->aliasModule, 'E-mail'),
         ];
 
     }
@@ -45,13 +46,14 @@ class Reviews extends yupe\models\YModel{
         return [
             ['name, message, organisation', 'filter', 'filter' => 'trim'],
             ['name', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
-            ['name, message', 'required', 'on' => ['update', 'insert']],
+            ['image, email, name, message', 'required', 'on' => ['update', 'insert']],
             ['on_home, status, rating', 'numerical', 'integerOnly' => true],
             ['name, organisation', 'length', 'max' => 150],
+            ['email', 'email'],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['rating', 'in', 'range' => array_keys($this->getRatingList())],
             ['on_home', 'in', 'range' => array_keys($this->getOnHomeList())],
-            ['on_home, id, date, name, message, status, organisation, image, rating', 'safe', 'on' => 'search'],
+            ['email, on_home, id, date, name, message, status, organisation, image, rating', 'safe', 'on' => 'search'],
         ];
     }
 
@@ -66,7 +68,6 @@ class Reviews extends yupe\models\YModel{
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
-                'requiredOn'    => 'insert',
                 'uploadPath'    => $module->uploadPath,
                 'resizeOptions' => [
                     'width'   => 9999,
@@ -77,7 +78,7 @@ class Reviews extends yupe\models\YModel{
                     ],
                 ],
                 'defaultImage'   => $module->getAssetsUrl() . '/img/nophoto.jpg',
-            ],
+            ]
         ];
     }
 
@@ -166,6 +167,11 @@ class Reviews extends yupe\models\YModel{
     {
         $data = $this->getOnHomeList();
         return isset($data[$this->on_home]) ? $data[$this->on_home] : Yii::t($this->aliasModule, '*unknown*');
+    }
+
+    public function getModelName()
+    {
+        return __CLASS__;
     }
 
 }
