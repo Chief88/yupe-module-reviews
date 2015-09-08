@@ -28,14 +28,6 @@
             ]
         ],
         [
-            'icon' => 'eye-open',
-            'label' => Yii::t($this->aliasModule, 'View reviews article'),
-            'url' => [
-                $this->patchBackend.'view',
-                'id' => $model->id
-            ]
-        ],
-        [
             'icon' => 'trash',
             'label' => Yii::t($this->aliasModule, 'Remove reviews'),
             'url' => '#', 'linkOptions' => [

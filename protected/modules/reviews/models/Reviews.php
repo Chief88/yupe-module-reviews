@@ -46,10 +46,31 @@ class Reviews extends yupe\models\YModel{
         return [
             ['name, message, organisation', 'filter', 'filter' => 'trim'],
             ['name', 'filter', 'filter' => [new CHtmlPurifier(), 'purify']],
-            ['image, email, name, message', 'required', 'on' => ['update', 'insert']],
-            ['on_home, status, rating', 'numerical', 'integerOnly' => true],
-            ['name, organisation', 'length', 'max' => 150],
-            ['email', 'email'],
+            ['email, name, message', 'required',
+                'on' => ['update', 'insert'],
+                'message' => 'Ошибка'
+            ],
+            ['on_home, status, rating', 'numerical',
+                'integerOnly' => true,
+                'message' => 'Ошибка'
+            ],
+            ['organisation', 'length',
+                'max' => 150,
+                'message' => 'Ошибка'
+            ],
+            ['name',
+                'match',
+                'pattern' => '/^[АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя A-Za-z-]{2,50}$/',
+                'message' => 'Ошибка'
+            ],
+			['message', 'length',
+                'max' => 500,
+                'message' => 'Ошибка'
+            ],
+            ['email',
+                'email',
+                'message' => 'Ошибка'
+            ],
             ['status', 'in', 'range' => array_keys($this->getStatusList())],
             ['rating', 'in', 'range' => array_keys($this->getRatingList())],
             ['on_home', 'in', 'range' => array_keys($this->getOnHomeList())],

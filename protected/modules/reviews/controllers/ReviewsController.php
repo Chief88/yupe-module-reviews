@@ -7,6 +7,7 @@ class ReviewsController extends yupe\components\controllers\FrontController{
     
     public function actionIndex()
     {
+        $this->processPageRequest('page');
         $this->_sendForm();
 
         $dbCriteria = new CDbCriteria([
@@ -17,23 +18,33 @@ class ReviewsController extends yupe\components\controllers\FrontController{
             'order'     => 't.date DESC',
         ]);
 
-
         $dataProvider = new CActiveDataProvider('Reviews', [
-            'criteria' => $dbCriteria,
+            'criteria'=>$dbCriteria,
             'pagination'=>[
-              'pageSize'=>$this->module->perPage,
+                'pageSize'=>$this->module->perPage,
+                'pageVar' =>'page',
             ],
         ]);
 
-        $categoryModel = '';
-        if (\Yii::app()->hasModule('category')) {
-            $categoryModel = \Category::model()->findByAttributes(['slug' => 'stranica-otzyvy']);
-        }
+        if (Yii::app()->request->isAjaxRequest){
+            $this->renderPartial('_loopAjax', [
+                'dataProvider'=>$dataProvider,
+            ]);
+            Yii::app()->end();
+        } else {
+            $categoryModel = \Category::model()->findByAttributes( ['slug' => 'stranica-otzyvy']);
 
-        $this->render('index', [
-            'categoryModel' => $categoryModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            $this->render('index', [
+                'dataProvider'=>$dataProvider,
+                'categoryModel'=>$categoryModel,
+            ]);
+        }
+    }
+
+    protected function processPageRequest($param='page')
+    {
+        if (Yii::app()->request->isAjaxRequest && isset($_POST[$param]))
+            $_GET[$param] = Yii::app()->request->getPost($param);
     }
 
     private function _sendForm(){
@@ -53,6 +64,11 @@ class ReviewsController extends yupe\components\controllers\FrontController{
 
             if ($form->validate()) {
                 if ($form->save()) {
+
+                    \Yii::app()->mailMessage->sendTemplate('ostavlen-novyy-otzyv',[
+                        '[[siteName]]' => \Yii::app()->name,
+                    ]);
+
                     if (\Yii::app()->getRequest()->getIsAjaxRequest()) {
                         \Yii::app()->ajax->success(\Yii::t($this->aliasModule, 'Your message sent! Thanks!'));
                     }

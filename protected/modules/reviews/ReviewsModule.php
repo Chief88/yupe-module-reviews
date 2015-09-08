@@ -9,9 +9,9 @@ class ReviewsModule extends WebModule
     public $uploadPath        = 'reviews';
     public $allowedExtensions = 'jpg,jpeg,png,gif';
     public $minSize           = 0;
-    public $maxSize           = 10485760;
+    public $maxSize           = 52428800;
     public $maxFiles          = 1;
-    public $perPage           = 6;
+    public $perPage           = 4;
 
     private  $aliasModule = 'ReviewsModule.reviews';
     private  $patchBackend = '/reviews/reviewsBackend/';
@@ -130,7 +130,7 @@ class ReviewsModule extends WebModule
 
     public function getAuthor()
     {
-        return Yii::t($this->aliasModule, 'adelfo development');
+        return Yii::t($this->aliasModule, 'Sergey Latyshkov');
     }
 
     public function getAuthorEmail()
@@ -140,7 +140,7 @@ class ReviewsModule extends WebModule
 
     public function getUrl()
     {
-        return Yii::t($this->aliasModule, 'http://adelfo-studio.ru/');
+        return Yii::t($this->aliasModule, 'https://github.com/Chief88/yupe-module-reviews');
     }
 
     public function getIcon()
@@ -186,22 +186,22 @@ class ReviewsModule extends WebModule
                 'items'       => [
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Reviews.reviewsBackend.Create',
+                        'name'        => 'reviews.reviewsBackend.Create',
                         'description' => Yii::t($this->aliasModule, 'Creating reviews')
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Reviews.reviewsBackend.Delete',
+                        'name'        => 'reviews.reviewsBackend.Delete',
                         'description' => Yii::t($this->aliasModule, 'Removing reviews')
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Reviews.reviewsBackend.Index',
+                        'name'        => 'reviews.reviewsBackend.Index',
                         'description' => Yii::t($this->aliasModule, 'List of reviews')
                     ],
                     [
                         'type'        => AuthItem::TYPE_OPERATION,
-                        'name'        => 'Reviews.reviewsBackend.Update',
+                        'name'        => 'reviews.reviewsBackend.Update',
                         'description' => Yii::t($this->aliasModule, 'Editing reviews')
                     ],
                 ]
